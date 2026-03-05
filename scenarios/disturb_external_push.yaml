@@ -1,0 +1,43 @@
+scenario_id: "DIST_PUSH_001"
+scenario_name: "External Push Recovery"
+description: "Humanoid is perturbed by randomized pushes while walking/standing."
+simulator: ["isaac_sim", "mujoco"]
+robot_model: ["unitree_h1", "generic_humanoid"]
+task: "disturbance_recovery"
+
+time:
+  dt: 0.002
+  control_hz: 200
+  horizon_sec: 15.0
+
+external_disturbance:
+  enabled: true
+  push_application: "torso"
+  push_interval_sec_range: [2.0, 5.0]
+
+safety_constraints:
+  fall_threshold:
+    base_height_m: 0.45
+    roll_pitch_deg: 35
+
+levels:
+  L0:
+    external_disturbance:
+      push_force_n_range: [0, 0]
+      push_duration_ms_range: [0, 0]
+  L1:
+    external_disturbance:
+      push_force_n_range: [20, 40]
+      push_duration_ms_range: [60, 120]
+  L2:
+    external_disturbance:
+      push_force_n_range: [40, 70]
+      push_duration_ms_range: [80, 160]
+  L3:
+    external_disturbance:
+      push_force_n_range: [70, 100]
+      push_duration_ms_range: [80, 200]
+  L4:
+    external_disturbance:
+      push_force_n_range: [100, 140]
+      push_duration_ms_range: [100, 250]
