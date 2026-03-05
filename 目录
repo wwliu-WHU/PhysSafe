@@ -1,0 +1,35 @@
+physsafe/
+├─ README.md
+├─ LICENSE
+├─ CITATION.cff
+├─ CODE_OF_CONDUCT.md
+├─ CONTRIBUTING.md
+├─ SECURITY.md
+├─ CHANGELOG.md
+├─ VERSION
+│
+├─ scenarios/
+│  ├─ hri_human_proximity.yaml
+│  ├─ loco_uneven_terrain.yaml
+│  └─ disturb_external_push.yaml
+│
+├─ spec/
+│  ├─ scenario_schema.md
+│  ├─ metrics_schema.md
+│  ├─ result_schema.md
+│  └─ hdf5_schema.md
+│
+├─ evaluation/
+│  ├─ evaluate.py
+│  └─ metrics.py
+│
+├─ examples/
+│  ├─ example_result.json
+│  └─ dummy_episode_generator.py
+│
+├─ baselines/
+│  └─ README.md
+│
+└─ docs/
+   ├─ quickstart.md
+   └─ leaderboard.md
