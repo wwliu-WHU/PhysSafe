@@ -1,0 +1,7 @@
+# Changelog
+
+## v0.1.0
+- Initial public release of PhysSafe benchmark specs
+- Scenario YAML specs (HRI, uneven terrain, external push)
+- HDF5 schema and result.json submission format
+- Reference evaluation script to compute safety metrics
