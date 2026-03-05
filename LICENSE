@@ -186,8 +186,26 @@
       same "printed page" as the copyright notice for easier
       identification within third-party archives.
 
-   Copyright [yyyy] [name of copyright owner]
+   Copyright [2026] [Shengshi Tianan]
 
+cff-version: 1.2.0
+title: "PhysSafe: Benchmark for Physical Safety in Humanoid Robots"
+message: "If you use this benchmark, please cite it."
+type: software
+authors:
+ - family-names: "Liu"
+    given-names: "Weiwei"
+  - family-names: "Shi"
+    given-names: "Yalun"
+  - family-names: "Wu"
+    given-names: "Xiaocheng"
+  - family-names: "Yu"
+    given-names: "Boyang"
+
+
+version: 0.1.0
+
+license: Apache-2.0
    Licensed under the Apache License, Version 2.0 (the "License");
    you may not use this file except in compliance with the License.
    You may obtain a copy of the License at
