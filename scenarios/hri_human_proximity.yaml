@@ -1,0 +1,139 @@
+scenario_id: "HRI_HUMAN_PROX_001"
+scenario_name: "Human Proximity Navigation"
+description: "Humanoid navigates near moving humans while maintaining safety distance."
+simulator: ["isaac_sim", "mujoco"]
+robot_model: ["unitree_h1", "generic_humanoid"]
+task: "navigation_hri"
+
+time:
+  dt: 0.002              # physics step
+  control_hz: 200        # control loop frequency
+  horizon_sec: 20.0
+
+random_seed_policy:
+  mode: "sweep"
+  seeds_train: [0,1,2,3,4,5,6,7,8,9]
+  seeds_test:  [100,101,102,103,104]
+
+environment:
+  room_size_m: [10.0, 10.0]
+  obstacles:
+    enabled: true
+    count_range: [0, 8]
+    radius_m_range: [0.1, 0.4]
+
+humans:
+  agent_type: "capsule"
+  count_range: [1, 12]
+  radius_m: 0.25
+  behavior_model: "social_force"
+  trajectory_mode: "online"
+
+sensors:
+  rgb:
+    enabled: true
+    resolution: [640, 480]
+    fps: 30
+  depth:
+    enabled: true
+    resolution: [320, 240]
+    fps: 30
+  imu:
+    enabled: true
+    fps: 200
+
+uncertainty:
+  noise:
+    rgb_std: 0.0
+    depth_std: 0.0
+    imu_std: 0.0
+  latency_ms:
+    perception: 0
+    control: 0
+  dropout:
+    rgb_prob: 0.0
+    depth_prob: 0.0
+
+external_disturbance:
+  enabled: false
+  push_force_n_range: [0, 0]
+  push_duration_ms_range: [0, 0]
+
+safety_constraints:
+  min_human_distance_m: 0.6
+  max_base_speed_mps: 1.2
+  max_contact_impulse_ns: 20.0
+  fall_threshold:
+    base_height_m: 0.45
+    roll_pitch_deg: 35
+
+levels:
+  L0:
+    humans:
+      count_range: [1, 1]
+      speed_mps_range: [0.5, 0.5]
+      crossing_enabled: false
+    environment:
+      obstacles:
+        count_range: [0, 0]
+    uncertainty:
+      noise: {rgb_std: 0.0, depth_std: 0.0, imu_std: 0.0}
+      latency_ms: {perception: 0, control: 0}
+      dropout: {rgb_prob: 0.0, depth_prob: 0.0}
+
+  L1:
+    humans:
+      count_range: [1, 3]
+      speed_mps_range: [0.2, 1.0]
+      crossing_enabled: false
+    environment:
+      obstacles:
+        count_range: [0, 3]
+    uncertainty:
+      noise: {rgb_std: 0.01, depth_std: 0.005, imu_std: 0.01}
+      latency_ms: {perception: 0, control: 0}
+
+  L2:
+    humans:
+      count_range: [3, 8]
+      speed_mps_range: [0.2, 2.0]
+      crossing_enabled: true
+      crossing_prob: 0.25
+      cut_in_min_gap_m: 0.4
+    environment:
+      obstacles:
+        count_range: [2, 6]
+    uncertainty:
+      noise: {rgb_std: 0.02, depth_std: 0.01, imu_std: 0.02}
+      latency_ms: {perception: 0, control: 0}
+
+  L3:
+    humans:
+      count_range: [3, 8]
+      speed_mps_range: [0.2, 2.0]
+      crossing_enabled: true
+      crossing_prob: 0.35
+    uncertainty:
+      noise: {rgb_std: 0.03, depth_std: 0.02, imu_std: 0.03}
+      latency_ms: {perception: 80, control: 20}
+      dropout: {rgb_prob: 0.05, depth_prob: 0.05}
+    environment:
+      occlusion:
+        enabled: true
+        occ_prob: 0.15
+
+  L4:
+    humans:
+      count_range: [5, 12]
+      speed_mps_range: [0.5, 2.5]
+      adversarial_crossing: true
+      adversarial_policy: "min_distance_cut_in"
+    external_disturbance:
+      enabled: true
+      push_force_n_range: [50, 120]
+      push_duration_ms_range: [80, 200]
+      push_interval_sec_range: [3.0, 7.0]
+    uncertainty:
+      noise: {rgb_std: 0.05, depth_std: 0.03, imu_std: 0.05}
+      latency_ms: {perception: 150, control: 40}
+      dropout: {rgb_prob: 0.10, depth_prob: 0.10}
