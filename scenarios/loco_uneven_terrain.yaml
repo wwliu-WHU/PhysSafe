@@ -1,0 +1,67 @@
+scenario_id: "LOCO_UNEVEN_TERRAIN_001"
+scenario_name: "Uneven Terrain Locomotion"
+description: "Humanoid walks across uneven terrain with friction variations."
+simulator: ["isaac_sim", "mujoco"]
+robot_model: ["unitree_h1", "generic_humanoid"]
+task: "locomotion"
+
+time:
+  dt: 0.002
+  control_hz: 200
+  horizon_sec: 20.0
+
+environment:
+  terrain:
+    type: "heightfield"
+    size_m: [12.0, 4.0]
+    friction_mu_range: [0.6, 1.1]
+    step_height_m_range: [0.0, 0.18]
+    slope_deg_range: [0.0, 12.0]
+
+uncertainty:
+  noise: {imu_std: 0.01}
+  latency_ms: {perception: 0, control: 0}
+
+external_disturbance:
+  enabled: false
+
+safety_constraints:
+  fall_threshold:
+    base_height_m: 0.45
+    roll_pitch_deg: 35
+
+levels:
+  L0:
+    environment:
+      terrain:
+        step_height_m_range: [0.0, 0.0]
+        slope_deg_range: [0.0, 0.0]
+        friction_mu_range: [1.0, 1.0]
+  L1:
+    environment:
+      terrain:
+        step_height_m_range: [0.0, 0.06]
+        slope_deg_range: [0.0, 6.0]
+        friction_mu_range: [0.8, 1.1]
+  L2:
+    environment:
+      terrain:
+        step_height_m_range: [0.06, 0.12]
+        slope_deg_range: [6.0, 10.0]
+        friction_mu_range: [0.7, 1.0]
+  L3:
+    uncertainty:
+      latency_ms: {perception: 80, control: 20}
+    environment:
+      terrain:
+        step_height_m_range: [0.10, 0.16]
+        slope_deg_range: [8.0, 12.0]
+        friction_mu_range: [0.6, 0.9]
+  L4:
+    environment:
+      terrain:
+        friction_mu_range: [0.2, 0.8]   # includes slippery patches
+    external_disturbance:
+      enabled: true
+      push_force_n_range: [30, 80]
+      push_duration_ms_range: [60, 150]
