@@ -1,0 +1,38 @@
+# Baseline Methods
+
+PhysSafe includes baseline controllers to facilitate comparison.
+
+---
+
+## Rule Policy
+
+Simple safety rules.
+
+Advantages:
+
+- interpretable
+- reliable
+
+Limitations:
+
+- low task performance
+
+---
+
+## CBF Shield
+
+Control barrier function safety filter.
+
+Advantages:
+
+- formal safety guarantees
+
+---
+
+## RL Policy
+
+Reinforcement learning policy trained for task success.
+
+Advantages:
+
+- strong task performance
