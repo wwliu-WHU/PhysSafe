@@ -1,0 +1,39 @@
+# PhysSafe Roadmap
+
+## v0.1
+
+Initial release:
+
+- scenario specification
+- evaluation metrics
+- HDF5 trajectory format
+
+---
+
+## v0.2
+
+Planned features:
+
+- rollout generator
+- example datasets
+- improved evaluation tools
+
+---
+
+## v0.3
+
+Baseline implementations:
+
+- rule policy
+- CBF safety layer
+- reinforcement learning policy
+
+---
+
+## v1.0
+
+Full benchmark release:
+
+- public leaderboard
+- dataset release
+- benchmark paper
